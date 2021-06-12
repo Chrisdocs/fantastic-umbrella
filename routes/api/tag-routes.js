@@ -7,7 +7,10 @@ router.get('/', (req, res) => {
   // find all tags
   // be sure to include its associated Product data
   Tag.findAll({
-
+    include: {
+      model: Product,
+      keys: 'id'
+    }
   })
   .then(tagData => res.json(tagData))
 });
@@ -18,6 +21,10 @@ router.get('/:id', (req, res) => {
   Tag.findAll({
     where: {
       id: req.params.id
+    },
+    include: {
+      model: Product,
+      keys: 'id'
     }
   })
   .then(tagData => res.json(tagData))
@@ -33,11 +40,16 @@ router.post('/', (req, res) => {
 
 router.put('/:id', (req, res) => {
   // update a tag's name by its `id` value
-  Tag.update({
+  Tag.update(
+    {
+      tag_name: req.body.tag_name
+    },
+    {
     where: {
       id: req.params.id
-    }
-  })
+    },
+  }
+  )
   .then(tagData => res.json(tagData))
 });
 
