@@ -17,6 +17,10 @@ router.get('/', (req, res) => {
     }
   })
   .then(categoryData => res.json(categoryData))
+  .catch((err) => {
+    console.log(err);
+    res.status(500).json(err);
+  });
 });
 
 router.get('/:id', (req, res) => {
@@ -35,7 +39,11 @@ router.get('/:id', (req, res) => {
       ]
     }
   })
-  // be sure to include its associated Products
+  .then(categoryData => res.json(categoryData))
+  .catch((err) => {
+    console.log(err);
+    res.status(500).json(err);
+  });
 });
 
 router.post('/', (req, res) => {
@@ -53,8 +61,12 @@ router.put('/:id', (req, res) => {
     where: {
       id: req.params.id
     }
-  }
-  )
+  })
+  .then(categoryData => res.json(categoryData))
+  .catch((err) => {
+    console.log(err);
+    res.status(400).json(err);
+  });
 });
 
 router.delete('/:id', (req, res) => {
@@ -64,6 +76,11 @@ router.delete('/:id', (req, res) => {
       id: req.params.id
     }
   })
+  .then(categoryData => res.json(categoryData))
+  .catch((err) => {
+    console.log(err);
+    res.status(400).json(err);
+  });
 });
 
 module.exports = router;
